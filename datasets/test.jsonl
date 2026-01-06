@@ -1,0 +1,30 @@
+{"id": 1, "sender": "alice@example.com", "subject": "Meeting Follow-Up", "content": "Hi, just checking in on the meeting notes."}
+{"id": 2, "sender": "mark.jones@startup.io", "subject": "Project Deadline Concern", "content": "Hey team, we really need those deliverables by Friday or we’ll miss the client handoff. Let’s stay sharp."}
+{"id": 3, "sender": "jordan.park@acme.com", "subject": "Action Items from Yesterday", "content": "Hi, sharing the action items from yesterday’s discussion. Please confirm ownership and timelines by EOD."}
+// {"id": 4, "sender": "recruiting@innovatech.io", "subject": "Next Round Scheduling", "content": "Hello, congrats on moving forward. Can you send 2–3 time slots for a 45-minute interview early next week?"}
+// {"id": 5, "sender": "sarah.lee@contoso.com", "subject": "Quick Question on Budget", "content": "Hi, can you confirm whether we have approval to increase the contractor hours next month?"}
+// {"id": 6, "sender": "no-reply@payments.example", "subject": "Receipt: Payment Confirmed", "content": "Thanks—your payment was processed successfully. This email is your receipt for the transaction."}
+// {"id": 7, "sender": "david.chen@university.edu", "subject": "Office Hours Update", "content": "Hi, I’m moving office hours to Thursday afternoon this week. Please reply if you need an alternative time."}
+// {"id": 8, "sender": "hr@brightworks.io", "subject": "Interview Availability", "content": "Hello, please share your availability for a 30-minute interview next week. We’re aiming for Tuesday through Thursday."}
+// {"id": 9, "sender": "it-support@acme.org", "subject": "Action Required: Password Reset", "content": "Your password expires soon. Please reset it today to avoid losing access to internal tools."}
+// {"id": 10, "sender": "priya.patel@agency.co", "subject": "Draft Ready for Review", "content": "Hi, the first draft is ready. Could you review sections 2–4 and send feedback by end of day Wednesday?"}
+// {"id": 11, "sender": "newsletter@productweekly.com", "subject": "This Week in Product Updates", "content": "Here are the top product and UX updates from this week, plus a few links we think you’ll find useful."}
+// {"id": 12, "sender": "ops@logistics.inc", "subject": "Shipment Delay Notice", "content": "Heads up: the shipment is delayed due to weather. Updated ETA is Monday by 5 PM local time."}
+// {"id": 13, "sender": "nina.garcia@fintech.dev", "subject": "Follow-Up: API Access", "content": "Hi, following up on the API keys for the sandbox environment. Can you confirm who should be provisioned?"}
+// {"id": 14, "sender": "team@calendar.example", "subject": "Invite: Weekly Sync", "content": "You’ve been added to the weekly sync. Please review the agenda doc before the meeting."}
+// {"id": 15, "sender": "michael@freelance.design", "subject": "Invoice for December", "content": "Hi, attached is the invoice for December. Payment terms are net 14—let me know if you need anything adjusted."}
+// {"id": 16, "sender": "security@service-alerts.com", "subject": "New Sign-In Detected", "content": "We detected a new sign-in to your account from a new device. If this wasn’t you, please secure your account."}
+// {"id": 17, "sender": "linda.wu@healthclinic.org", "subject": "Appointment Confirmation", "content": "This is a confirmation for your appointment on Friday at 2:30 PM. Reply to reschedule if needed."}
+// {"id": 18, "sender": "carlos@nonprofit.net", "subject": "Thank You for Volunteering", "content": "Thanks again for volunteering this weekend. We really appreciate your time and support."}
+// {"id": 19, "sender": "jenna.kim@enterprise.com", "subject": "Request: Status Update", "content": "Hi, can you send a quick status update on the integration work and any blockers we should flag?"}
+// {"id": 20, "sender": "notifications@travel.example", "subject": "Flight Change Alert", "content": "Your flight itinerary has changed. Please review the updated departure time and confirm your seat selection."}
+// {"id": 21, "sender": "omar.hassan@consulting.io", "subject": "Next Steps After Kickoff", "content": "Great meeting today. Next steps: finalize scope, confirm owners, and align on the timeline by Monday."}
+// {"id": 22, "sender": "billing@cloudhost.com", "subject": "Invoice Available", "content": "Your monthly invoice is now available. Log in to view details and update payment information if needed."}
+// {"id": 23, "sender": "recruiting@bigtech.com", "subject": "Coding Assessment Link", "content": "Hi, here is the link to your coding assessment. Please complete it within 72 hours and let us know if you have issues."}
+// {"id": 24, "sender": "anna@community.org", "subject": "Event Reminder", "content": "Reminder: the community meetup starts at 6 PM tomorrow. We’ll have a short talk followed by networking."}
+// {"id": 25, "sender": "support@saasapp.io", "subject": "Ticket Update: Resolved", "content": "Good news—your support ticket has been resolved. Reply to this email if the issue persists."}
+// {"id": 26, "sender": "kevin.brooks@marketing.co", "subject": "Social Post Approval Needed", "content": "Hi, can you approve the social copy for Friday’s post? I want to schedule it by 3 PM."}
+// {"id": 27, "sender": "events@conference.org", "subject": "Registration Confirmed", "content": "You’re confirmed for the conference. Your badge pickup details and schedule are included in this email."}
+// {"id": 28, "sender": "manager@startup.io", "subject": "Priority Shift This Week", "content": "Team, we need to pause the refactor and focus on the bug backlog. Please update your tasks accordingly."}
+// {"id": 29, "sender": "alex.morgan@legalfirm.com", "subject": "Document Signature Requested", "content": "Hi, please review and sign the attached document when you have a moment. Let me know if you have questions."}
+// {"id": 30, "sender": "samantha@lab.org", "subject": "Data Request Follow-Up", "content": "Hi, checking in on the dataset request. If you can share access by Friday, we can stay on schedule."}
