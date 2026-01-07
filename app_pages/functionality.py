@@ -233,9 +233,9 @@ def generate_email(original_email: Email = Email()) -> Email:
 
         # metrics.append(new_metric)
     
-    print(len(metrics))
-    st.write("Guardrails")
-    st.write(guardrails)
+    # print(len(metrics))
+    # st.write("Guardrails")
+    # st.write(guardrails)
     overall_score = get_overall_score(metrics)
     # guardrails = [{"name": "Faithfulness", "status": "Pass", "reasoning": "No hallucinations detected."},]
 
@@ -249,7 +249,7 @@ def generate_email(original_email: Email = Email()) -> Email:
     }
     st.session_state.evaluation_data = eval_data
 
-    print(eval_data)
+    # print(eval_data)
 
     
     return Email({
@@ -304,7 +304,6 @@ def sync_email_id():
     # Clear the generated output for the new selection
     st.session_state.generated_textbox_suite = ""
     st.session_state.generated_subject = ""
-
 
 def sync_llm():
     """
@@ -784,7 +783,7 @@ def get_overall_score(metrics):
     for metric in metrics:
         total += metric['score']
 
-    st.write(metrics)
+    # st.write(metrics)
     return (math.floor((total / len(metrics)) * 100)) / 100
 
 def test():

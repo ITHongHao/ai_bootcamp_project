@@ -1,173 +1,159 @@
 import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
 
-def render_evaluation_page():
-    # --- 1. EXPANDED MOCK DATA (10 Metrics) ---
-    # Added 'category' to organize the 10 metrics
-    eval_data = {
-        "overall_score": 3.8,
-        "status": "Review Needed",
-        "guardrails": [
-            {"name": "Faithfulness", "status": "Pass", "reasoning": "No hallucinations detected."},
-            {"name": "PII Safety", "status": "Pass", "reasoning": "Clean of sensitive data."},
-            {"name": "Toxicity", "status": "Pass", "reasoning": "No toxic language detected."}
-        ],
-        "metrics": [
-            {"name": "Conciseness", "score": 5, "cat": "Structure", "reasoning": "Very direct.", "prompt": "Rate conciseness 1-5."},
-            {"name": "Grammar", "score": 5, "cat": "Structure", "reasoning": "No errors found.", "prompt": "Check for grammatical errors."},
-            {"name": "Formatting", "score": 4, "cat": "Structure", "reasoning": "Good use of spacing, but bullet points could help.", "prompt": "Rate visual formatting."},
-            
-            {"name": "Tone Consistency", "score": 4, "cat": "Tone", "reasoning": "Mostly professional.", "prompt": "Rate tone consistency."},
-            {"name": "Empathy", "score": 2, "cat": "Tone", "reasoning": "Sounded slightly robotic in the opening.", "prompt": "Rate empathy 1-5."},
-            {"name": "Politeness", "score": 5, "cat": "Tone", "reasoning": "Very polite usage of 'Please' and 'Thank you'.", "prompt": "Rate politeness."},
-            
-            {"name": "Actionability", "score": 3, "cat": "Content", "reasoning": "Call to action was vague.", "prompt": "Does it have clear next steps?"},
-            {"name": "Relevance", "score": 5, "cat": "Content", "reasoning": "Directly answers the prompt.", "prompt": "Rate relevance to query."},
-            {"name": "Completeness", "score": 4, "cat": "Content", "reasoning": "Covered 3 of 4 user questions.", "prompt": "Check if all questions were answered."},
-            
-            {"name": "Brand Voice", "score": 2, "cat": "Custom", "reasoning": "Failed to use the slogan.", "prompt": "Check for brand slogan usage."}
-        ]
-    }
-
-    st.markdown("## ⚖️ Evaluation Results")
-
-    # --- 2. HEADER: HIGH-LEVEL HEALTH ---
-    top_c1, top_c2, top_c3 = st.columns([1, 1, 2])
-    with top_c1:
-        st.metric("Overall Score", f"{eval_data['overall_score']} / 5", delta="-0.4")
-    with top_c2:
-        # Dynamic Status Badge
-        color = "green" if eval_data['overall_score'] >= 4 else "orange" if eval_data['overall_score'] >= 3 else "red"
-        st.markdown("**Status**")
-        st.markdown(f":{color}-background[{eval_data['status']}]")
-    with top_c3:
-         # Quick Guardrail Check (Mini indicators)
-         st.markdown("**Guardrails**")
-         g_cols = st.columns(len(eval_data['guardrails']))
-         for i, g in enumerate(eval_data['guardrails']):
-             icon = "✅" if g['status'] == "Pass" else "❌"
-             g_cols[i].caption(f"{icon} {g['name']}")
-
-    st.divider()
-
-    # --- 3. VISUALIZATION LAYER ---
-    col_viz, col_matrix = st.columns([1, 1], gap="medium")
-
-    with col_viz:
-        st.subheader("Shape of Quality")
-        # Radar Chart for all 10 metrics
-        # (We use the categories to color-code or just show one big shape)
-        df_metrics = pd.DataFrame(eval_data['metrics'])
+def render_homepage():
+    # --- CUSTOM CSS FOR TECH-FORWARD LOOK ---
+    st.markdown("""
+    <style>
+        /* Modern Gradient Headings */
+        .gradient-text {
+            background: -webkit-linear-gradient(45deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
         
-        fig = px.line_polar(
-            df_metrics, 
-            r='score', 
-            theta='name', 
-            line_close=True,
-            markers=True,
-            range_r=[0,5],
-            title=""
-        )
-        fig.update_traces(fill='toself', line_color='#00CC96')
-        fig.update_layout(
-            polar=dict(radialaxis=dict(visible=True)),
-            margin=dict(t=10, b=10, l=30, r=30),
-            height=300,
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col_matrix:
-        st.subheader("Metric Heatmap")
-        st.caption("Quickly spot weak points (Darker = Lower Score)")
+        /* Feature Cards (Glassmorphism) */
+        .tech-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+        }
         
-        # HEATMAP: A modern way to view many metrics at once
-        # Reshape data into a 2x5 grid for visualization
-        matrix_data = df_metrics.sort_values(by="score", ascending=False)
-        
-        fig_bar = px.bar(
-            matrix_data,
-            x="score",
-            y="name",
-            orientation='h',
-            color="score",
-            color_continuous_scale="RdYlGn", # Red to Green
-            text="score"
-        )
-        fig_bar.update_layout(
-            yaxis={'categoryorder':'total ascending', 'title': ''},
-            xaxis={'range': [0, 5.5], 'title': ''},
-            height=300,
-            margin=dict(t=0, b=0, l=0, r=0),
-            coloraxis_showscale=False,
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-        )
-        st.plotly_chart(fig_bar, use_container_width=True)
+        /* Metric Badges for the Grid */
+        .metric-badge {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin: 2px;
+            display: inline-block;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
-    st.divider()
-
-    # --- 4. DETAILED INSPECTOR (With Filtering) ---
-    st.markdown("### 🔎 Metric Inspector")
+    # --- 1. HERO: THE VALUE PROP ---
+    st.markdown("<h1 style='text-align: center; font-size: 4rem;'>The <span class='gradient-text'>Email AI Suite</span></h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 1.2rem; color: #94a3b8; margin-bottom: 2rem;'>The first LLM editor engineered with a 10-point quality assurance framework.</p>", unsafe_allow_html=True)
     
-    # CONTROL BAR
-    c_filter, c_sort, c_spacer = st.columns([2, 1, 1])
+    # Primary CTA centered
+    _, c_cta, _ = st.columns([1, 1, 1])
+    with c_cta:
+        if st.button("✨ Launch Demo Environment", type="primary", use_container_width=True):
+             st.session_state.page = "email_suite" # Router logic
+             st.rerun()
     
-    with c_filter:
-        # Category Filter (Pills are great for modern UI)
-        categories = ["All"] + list(df_metrics['cat'].unique())
-        selected_cat = st.pills("Filter by Category", categories, default="All")
-        
-    with c_sort:
-        sort_order = st.selectbox("Sort by", ["Default", "Score (Low to High)", "Score (High to Low)"], label_visibility="collapsed")
+    st.markdown("---")
 
-    # LOGIC: Filter and Sort
-    filtered_df = df_metrics.copy()
-    if selected_cat != "All":
-        filtered_df = filtered_df[filtered_df['cat'] == selected_cat]
-        
-    if sort_order == "Score (Low to High)":
-        filtered_df = filtered_df.sort_values(by="score", ascending=True)
-    elif sort_order == "Score (High to Low)":
-        filtered_df = filtered_df.sort_values(by="score", ascending=False)
+    # --- 2. FEATURE DEEP DIVE: THE ARCHITECTURE ---
+    st.subheader("System Architecture")
+    st.caption("A dual-engine platform designed for both End-Users and QA Engineers.")
+
+    col1, col2 = st.columns(2, gap="medium")
+
+    with col1:
+        st.markdown("""
+        <div class="tech-card">
+            <h3 style="color: #60a5fa;">🧠 The Workbench (User)</h3>
+            <p style="color: #cbd5e1;">A distraction-free writing environment where LLMs assist with drafting, editing, and tone shifting.</p>
+            <ul>
+                <li>Real-time Tone Adjustment</li>
+                <li>One-click Summarization</li>
+                <li>Instant Grammar Correction</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="tech-card">
+            <h3 style="color: #c084fc;">🧪 The Testing Lab (Admin)</h3>
+            <p style="color: #cbd5e1;">A rigorous testing dashboard to benchmark prompts, compare models, and prevent regression.</p>
+            <ul>
+                <li>Batch Unit Testing</li>
+                <li>Radar Chart Visualizations</li>
+                <li>Import/Export Test Cases</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.write("") # Spacer
 
-    # RENDER CARDS (Grid Layout)
-    # Instead of one long list, we use a 2-column grid for the cards
-    grid_cols = st.columns(2)
+    # --- 3. THE GUARDRAILS (METRICS SHOWCASE) ---
+    # This is great for a demo to show "Look how robust our checking is"
+    st.subheader("🛡️ The 10-Point Judge Framework")
+    st.caption("Every generated response is evaluated against these distinct metrics before approval.")
+
+    m1, m2, m3 = st.columns(3)
     
-    for i, row in enumerate(filtered_df.to_dict('records')):
-        col = grid_cols[i % 2]
+    with m1:
+        st.markdown("**Core Quality**")
+        st.markdown('<span class="metric-badge">Faithfulness</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Relevance</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Completeness</span>', unsafe_allow_html=True)
         
-        with col:
-            # Color-code the card border based on score
-            card_border = "red" if row['score'] <= 2 else "grey"
-            
-            with st.container(border=True):
-                # Header Row
-                h1, h2 = st.columns([0.8, 0.2])
-                h1.markdown(f"**{row['name']}**")
-                
-                # Visual Score Indicator
-                stars = "⭐" * int(row['score'])
-                score_color = "red" if row['score'] <= 2 else "green" if row['score'] >= 4 else "orange"
-                h2.markdown(f":{score_color}[**{row['score']}/5**]")
-                
-                # Body
-                st.caption(f"Category: {row['cat']}")
-                st.write(row['reasoning'])
-                
-                # Expandable details to keep card small
-                with st.expander("See Prompt & Details"):
-                    st.markdown("**Prompt Used:**")
-                    st.code(row['prompt'], language="text")
-                    if st.button(f"Edit Judge", key=f"btn_{row['name']}"):
-                        st.toast(f"Editing {row['name']}...")
+    with m2:
+        st.markdown("**Style & Voice**")
+        st.markdown('<span class="metric-badge">Tone Consistency</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Conciseness</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Politeness</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Empathy</span>', unsafe_allow_html=True)
+
+    with m3:
+        st.markdown("**Safety & Format**")
+        st.markdown('<span class="metric-badge">PII Safety</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Toxicity</span>', unsafe_allow_html=True)
+        st.markdown('<span class="metric-badge">Formatting</span>', unsafe_allow_html=True)
+
+    st.write("") # Spacer
+    st.markdown("---")
+
+    # --- 4. WORKFLOW VISUALIZATION ---
+    st.subheader("🔁 Continuous Improvement Loop")
+    
+    # Using Streamlit columns to create a "Step-by-Step" flow
+    w1, w2, w3, w4, w5 = st.columns([1, 0.2, 1, 0.2, 1])
+    
+    with w1:
+        st.image("https://img.icons8.com/ios/100/ffffff/email-open.png", width=60)
+        st.markdown("**1. Draft**")
+        st.caption("User drafts an email or selects a reply.")
+    
+    with w2:
+        st.markdown("<h2 style='text-align: center; padding-top: 20px;'>→</h2>", unsafe_allow_html=True)
+
+    with w3:
+        st.image("https://img.icons8.com/ios/100/ffffff/artificial-intelligence.png", width=60)
+        st.markdown("**2. Optimize**")
+        st.caption("LLM rewrites text while Judge metrics score it.")
+
+    with w4:
+         st.markdown("<h2 style='text-align: center; padding-top: 20px;'>→</h2>", unsafe_allow_html=True)
+
+    with w5:
+        st.image("https://img.icons8.com/ios/100/ffffff/combo-chart.png", width=60)
+        st.markdown("**3. Analyze**")
+        st.caption("Admins review low scores in the Lab to fix prompts.")
+
+    # --- 5. FOOTER / NAVIGATION ---
+    st.markdown("---")
+    f_col1, f_col2 = st.columns([4, 1])
+    with f_col1:
+         st.caption("System Status: 🟢 All Systems Operational | Model: GPT-4o")
+    with f_col2:
+        if st.button("Enter Dashboard →"):
+            st.session_state.page = "dashboard"
+            st.rerun()
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
-    render_evaluation_page()
+    render_homepage()
