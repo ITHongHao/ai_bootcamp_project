@@ -160,4 +160,6 @@ class GenerateEmail():
 if __name__ == '__main__':
     print("Running generate.py")
     llm = GenerateEmail(os.getenv("DEPLOYMENT_NAME"))
-    llm.generate_data('test_generation', 'shorten', 5)
+    llm.generate_data('ambiguity', 'ambiguity-tone', 1)
+    llm.generate_data('improper', 'improper', 1)
+    llm.generate_data('guardrail', 'guardrail', 1)

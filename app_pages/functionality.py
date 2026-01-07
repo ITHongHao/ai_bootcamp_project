@@ -191,7 +191,7 @@ def generate_email(original_email: Email = Email()) -> Email:
         )
         try: # categories are not implemented yet
             data = json.loads(evaluation_json)
-            print(type(data.get('rating')))
+            # print(type(data.get('rating')))
             guardrails.append({
                 'name' : guardrail,
                 'status' : 'Pass' if data.get('rating') == 1 else 'Fail',
@@ -803,7 +803,7 @@ def test():
         # --- 2. HEADER: HIGH-LEVEL HEALTH ---
         top_c1, top_c2, top_c3 = st.columns([1, 1, 2])
         with top_c1:
-            st.metric("Overall Score", f"{eval_data['overall_score']} / 5", delta="-0.4", help="Overall score is the average of all selected metrics. The delta is the difference from the dataset average score")
+            st.metric("Overall Score", f"{eval_data['overall_score']} / 5", help="Overall score is the average of all selected metrics. The delta is the difference from the dataset average score")
         with top_c2:
             # Dynamic Status Badge
             color = "green" if eval_data['overall_score'] >= 4 else "orange" if eval_data['overall_score'] >= 3 else "red"

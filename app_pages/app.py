@@ -55,8 +55,9 @@ about_page = st.Page(
 # Grouping pages creates section headers in the sidebar
 pg = st.navigation(
     {
-        "Main": [home_page, dashboard_page, email_suite_page],
-        "Demos": [demo_page_1, demo_page_2],
+        # "Main": [home_page, dashboard_page, email_suite_page],
+        # "Demos": [demo_page_1, demo_page_2],
+        "Demos" : [dashboard_page, email_suite_page],
         "Resources": [documentation_page, about_page],
         "Dev Tools": [test_page],
     }
