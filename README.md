@@ -1,8 +1,9 @@
-# AI.Accelerate Bootcamp — Starter Code
+# AI Email Creation and Testing Suite
 
-This repository contains two Python files that students will use to start their bootcamp projects. Files are:
-- `datasets/`: Dataset directory for each of the three email-helper actions students are expected to support in their apps
-- `app.py`: Starter Streamlit app
+This repository contains Python files that act as helper backend functions or UI pages. The follow folders are described below:
+- `datasets/`: Dataset directory for various email-helper actions
+- `app_pages/`: Folder containing page files, backend logic, or scripts
+- `app_pages/app.py`: Starter Streamlit app
 
 Follow the instructions below to set up your environment, create a virtual environment, and install all required dependencies.
 
@@ -68,5 +69,3 @@ To run the app on Streamlit, run:
 streamlit run app.py
 ```
 It will open a localhost on your browser. Use this to preview all the changes to your app during the bootcamp.
-
-Welcome to AI.Accelerate!
